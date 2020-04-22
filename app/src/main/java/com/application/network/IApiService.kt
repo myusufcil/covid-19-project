@@ -15,12 +15,7 @@ import retrofit2.http.Query
 //https://api.collectapi.com/corona/countriesData
 
 interface IApiService {
-    @Headers(
-        "authorization: apikey 2WNOzsNJx8ud5KbCBwwRA6:3yM1VFyR9Wn5kXLj7OQJW2"
-        , "content-type: application/json"
-    )
-    @GET("countriesData/")
+    @Headers("Authorization: apikey 2WNOzsNJx8ud5KbCBwwRA6:3yM1VFyR9Wn5kXLj7OQJW2")
+    @GET("corona/countriesData/")
     fun getCoronaForCountries(): Call<CoronaCountriesInformation>
-
-
 }

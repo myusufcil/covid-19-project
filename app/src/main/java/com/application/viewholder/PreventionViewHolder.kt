@@ -15,5 +15,4 @@ class PreventionViewHolder (view:View):BaseViewHolder(view){
     override fun bindView(baseModel: IBaseModel, position: Int,click: IRecyclerViewClickListener) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
