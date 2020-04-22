@@ -1,7 +1,6 @@
 package com.application.dto
 
 import com.application.model.IBaseModel
-import com.application.model.IBaseModel.Companion.TYPE_COVİD_VIRUSES_BY_COUNTRIES
 
 /*
   Created by Muhammed Yusuf ÇİL
@@ -9,7 +8,7 @@ import com.application.model.IBaseModel.Companion.TYPE_COVİD_VIRUSES_BY_COUNTRI
   myusufcl7@gmail.com
 */
 
-
+/*
 data class CoronaCountriesDTO(
     var country: String,
     var totalCases: String,
@@ -21,4 +20,4 @@ data class CoronaCountriesDTO(
 ) : IBaseModel {
     override val type: Int
         get() = TYPE_COVİD_VIRUSES_BY_COUNTRIES
-}
+}*/

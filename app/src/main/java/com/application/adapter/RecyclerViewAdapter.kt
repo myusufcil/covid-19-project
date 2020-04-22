@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.application.covid_19.R
 import com.application.model.IBaseModel
 import com.application.viewholder.BaseViewHolder
+import com.application.viewholder.CaseUpdateViewHolder
 import com.application.viewholder.PreventionViewHolder
 
 /*
@@ -21,11 +22,10 @@ class RecyclerViewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         var layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            IBaseModel.TYPE_COVİD_VIRUSES_BY_COUNTRIES ->
-                //TODO not done yet
-                PreventionViewHolder(
+            IBaseModel.TYPE_CASE_UPDATE ->
+                CaseUpdateViewHolder(
                     layoutInflater.inflate(
-                        R.layout.item_prevention,
+                        R.layout.item_case_update_card,
                         parent,
                         false
                     )
@@ -39,8 +39,14 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when (items[position].type) {
-            IBaseModel.TYPE_COVİD_VIRUSES_BY_COUNTRIES ->
+      /*      IBaseModel.TYPE_COVİD_VIRUSES_BY_COUNTRIES ->
                 (holder as PreventionViewHolder).bindView(
+                    items[position],
+                    position,
+                    recyclerViewClickListener
+                )*/
+            IBaseModel.TYPE_CASE_UPDATE ->
+                (holder as CaseUpdateViewHolder).bindView(
                     items[position],
                     position,
                     recyclerViewClickListener

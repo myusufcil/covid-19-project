@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#5D4037</color>
+    <color name="colorAccent">#FFB300</color>
+    <color name="colorText">#000000</color>
+    <color name="colorPlaceHolderPress">#ff8d00</color>
+    <color name="colorPlaceHolder">#000000</color>
+    <color name="colorImageButton">#000000</color>
+    <color name="colorDate">#f7f7f7</color>
+    <color name="colorRelativeBackGround">#f7f7f7</color>
+    <color name="colorToolBar">#AB47BC</color>
+    <color name="Red">#FF0000</color>
+    <color name="Purple">#4A148C</color>
+    <color name="Yellow">#FFD600</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
+    <color name="Blue">#0D47A1</color>
+    <color name="Gray">#212121</color>
+    <color name="colorFabMenu">#303F9F</color>
+    <color name="colorDarkWhite">#e5e5e5</color>
+    <color name="azure4">#838B8B</color>
+    <color name="cyan">#B2EBF2</color>
+    <color name="green">#558B2F</color>
+
 </resources>
