@@ -48,7 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
-
         <ImageView
             android:id="@+id/iv_item_case_update_card_infected_color"
             android:layout_width="20dp"
