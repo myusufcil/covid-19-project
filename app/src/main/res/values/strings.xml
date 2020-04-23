@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Covid-19-Project</string>
+    <string-array name="test">
+        <item>USA</item>
+        <item>Turkey</item>
+        <item>China</item>
+        <item>Deneme4</item>
+    </string-array>
 </resources>
