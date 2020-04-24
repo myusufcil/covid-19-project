@@ -2,12 +2,15 @@ package com.application.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.application.MainActivity
 import com.application.covid_19.R
 import com.application.model.IBaseModel
 import com.application.viewholder.BaseViewHolder
 import com.application.viewholder.CaseUpdateViewHolder
 import com.application.viewholder.PreventionViewHolder
+import kotlinx.android.synthetic.main.item_case_update_card.*
 
 /*
   Created by Muhammed Yusuf ÇİL
@@ -30,6 +33,8 @@ class RecyclerViewAdapter(
                         false
                     )
                 )
+
+
             else ->
                 throw IllegalArgumentException("Invalid view type")
         }

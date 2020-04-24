@@ -7,7 +7,6 @@ import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         var arrayCountry:ArrayList<String> = ArrayList()
         arrayCountry.add("Seçiniz")
 
-        var animation:Animation
+        var animationCase:Animation
+
+        var sayac=0
 
 
 
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                     selectedCountry=arrayCountry[position]
 
                     //Api Data Pull - Yusuf
+
                     caseUpdateList.clear()
                     val apiService = RetrofitCoronaFactory.getCovidInformation()
                         .getCoronaForCountries()
@@ -127,9 +129,11 @@ class MainActivity : AppCompatActivity() {
                                     )
 
                                     if(_result.country.equals(selectedCountry)) {
+
                                         caseUpdateList.add(topRatedListObject)
                                         recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
 
+                                        sayac=1
 
 
                                     }
@@ -142,8 +146,13 @@ class MainActivity : AppCompatActivity() {
 
 
                     //
-
-
+                    //Animasyon Case Update - Mustafa
+                    if (sayac==1){
+                        animationCase=AnimationUtils.loadAnimation(this@MainActivity,R.anim.caseupdategelen_animation)
+                        animationCase.fillAfter=true
+                        caseUpdate_constraint.startAnimation(animationCase)
+                    }
+                    //
 
                 }
 
@@ -155,6 +164,8 @@ class MainActivity : AppCompatActivity() {
         }
 
             //For Spinner
+
+
 
 
 
