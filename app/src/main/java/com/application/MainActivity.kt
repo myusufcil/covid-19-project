@@ -40,9 +40,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,9 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         var sayac=0
 
-
-
-        // Ükle Dizisi çekmek için
+        // Ülkeleri çekmek için
 
         val apiService = RetrofitCoronaFactory.getCovidInformation()
             .getCoronaForCountries()
@@ -82,11 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        //
-
         //For Spinner - Mustafa
-        val testicerik = resources.getStringArray(R.array.test)
-
         val spinner = findViewById<Spinner>(R.id.country_spinner)
         if (spinner != null) {
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrayCountry)
@@ -100,7 +91,6 @@ class MainActivity : AppCompatActivity() {
                     selectedCountry=arrayCountry[position]
 
                     //Api Data Pull - Yusuf
-
                     caseUpdateList.clear()
                     val apiService = RetrofitCoronaFactory.getCovidInformation()
                         .getCoronaForCountries()
@@ -108,7 +98,6 @@ class MainActivity : AppCompatActivity() {
                         override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
                             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                         }
-
                         override fun onResponse(
                             call: Call<CoronaCountriesInformation>,
                             response: Response<CoronaCountriesInformation>
@@ -123,9 +112,6 @@ class MainActivity : AppCompatActivity() {
                                         totalCases = _result.totalCases,
                                         totalDeaths = _result.totalDeaths,
                                         totalRecovered = _result.totalRecovered
-//                            totalCases = "000000000",
-//                            totalDeaths = "000000000",
-//                            totalRecovered = "000000000"
                                     )
 
                                     if(_result.country.equals(selectedCountry)) {
@@ -135,15 +121,11 @@ class MainActivity : AppCompatActivity() {
 
                                         sayac=1
 
-
                                     }
-
-
                                 }
                             }
                         }
                     })
-
 
                     //
                     //Animasyon Case Update - Mustafa
@@ -153,9 +135,7 @@ class MainActivity : AppCompatActivity() {
                         caseUpdate_constraint.startAnimation(animationCase)
                     }
                     //
-
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }

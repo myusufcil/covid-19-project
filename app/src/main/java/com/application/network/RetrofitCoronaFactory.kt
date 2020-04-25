@@ -13,9 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitCoronaFactory {
     companion object{
-
-
-
         var BASE_URL="https://api.collectapi.com/"
         fun getCovidInformation():IApiService{
 
