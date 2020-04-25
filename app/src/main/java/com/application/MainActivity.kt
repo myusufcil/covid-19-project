@@ -17,6 +17,7 @@ import com.application.dto.CaseUpdateDTO
 import com.application.model.CoronaCountriesInformation
 import com.application.model.IBaseModel
 import com.application.network.RetrofitCoronaFactory
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import kotlinx.android.synthetic.main.item_case_update_card.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,13 +46,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         getRecyclerViewAdapter()
 
-        var selectedCountry:String="USA"
-        var arrayCountry:ArrayList<String> = ArrayList()
-        arrayCountry.add("Seçiniz")
+        var selectedCountry: String = "USA"
+        var arrayCountry: ArrayList<String> = ArrayList()
 
-        var animationCase:Animation
+        //var spFirstClick: Boolean =
+         //   true // Searchable Spinner için gerekli,ilk tıklamayı yapıyor ardına hata veriyor. Uygulama açılırken tıklama yapmaması gerekiyor. -- Düzenleme - Gereksizmiş
 
-        var sayac=0
+        var animationCase: Animation
+
+        var sayac = 0
 
         // Ülkeleri çekmek için
 
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<CoronaCountriesInformation>
             ) {
                 response.body().let {
-                    it!!.result.forEach {_result->
+                    it!!.result.forEach { _result ->
                         /*var item= CountryDTO(
                             country = _result.country
                         )*/
@@ -78,64 +81,84 @@ class MainActivity : AppCompatActivity() {
         })
 
         //For Spinner - Mustafa
-        val spinner = findViewById<Spinner>(R.id.country_spinner)
+        val spinner = findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
         if (spinner != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrayCountry)
+            val adapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrayCountry)
 
             spinner.adapter = adapter
             spinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
 
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-//                    Toast.makeText(this@MainActivity, "Seç" + " " + "" + testicerik[position], Toast.LENGTH_SHORT).show()
-                    selectedCountry=arrayCountry[position]
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
 
-                    //Api Data Pull - Yusuf
-                    caseUpdateList.clear()
-                    val apiService = RetrofitCoronaFactory.getCovidInformation()
-                        .getCoronaForCountries()
-                    apiService.enqueue(object : Callback<CoronaCountriesInformation> {
-                        override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
-                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                        }
-                        override fun onResponse(
-                            call: Call<CoronaCountriesInformation>,
-                            response: Response<CoronaCountriesInformation>
-                        ) {
-                            response.body().let {
-                                it!!.result.forEach {_result->
-                                    /*var item= CountryDTO(
-                                        country = _result.country
-                                    )*/
+                    //if (!spFirstClick) {
 
-                                    var topRatedListObject = CaseUpdateDTO(
-                                        totalCases = _result.totalCases,
-                                        totalDeaths = _result.totalDeaths,
-                                        totalRecovered = _result.totalRecovered
-                                    )
+                        selectedCountry = arrayCountry[position]
 
-                                    if(_result.country.equals(selectedCountry)) {
+                        //Api Data Pull - Yusuf
+                        caseUpdateList.clear()
+                        val apiService = RetrofitCoronaFactory.getCovidInformation()
+                            .getCoronaForCountries()
+                        apiService.enqueue(object : Callback<CoronaCountriesInformation> {
+                            override fun onFailure(
+                                call: Call<CoronaCountriesInformation>,
+                                t: Throwable
+                            ) {
+                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            }
 
-                                        caseUpdateList.add(topRatedListObject)
-                                        recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
+                            override fun onResponse(
+                                call: Call<CoronaCountriesInformation>,
+                                response: Response<CoronaCountriesInformation>
+                            ) {
+                                response.body().let {
+                                    it!!.result.forEach { _result ->
+                                        /*var item= CountryDTO(
+                                            country = _result.country
+                                        )*/
 
-                                        sayac=1
+                                        var topRatedListObject = CaseUpdateDTO(
+                                            totalCases = _result.totalCases,
+                                            totalDeaths = _result.totalDeaths,
+                                            totalRecovered = _result.totalRecovered
+                                        )
 
+                                        if (_result.country.equals(selectedCountry)) {
+
+                                            caseUpdateList.add(topRatedListObject)
+                                            recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
+
+                                            sayac = 1
+
+                                        }
                                     }
                                 }
                             }
+                        })
+
+                        //
+                        //Animasyon Case Update - Mustafa
+                        if (sayac == 1) {
+                            animationCase = AnimationUtils.loadAnimation(
+                                this@MainActivity,
+                                R.anim.caseupdategelen_animation
+                            )
+                            animationCase.fillAfter = true
+                            caseUpdate_constraint.startAnimation(animationCase)
                         }
-                    })
+
+                    //}
+//                    Toast.makeText(this@MainActivity, "Seç" + " " + "" + testicerik[position], Toast.LENGTH_SHORT).show()
 
                     //
-                    //Animasyon Case Update - Mustafa
-                    if (sayac==1){
-                        animationCase=AnimationUtils.loadAnimation(this@MainActivity,R.anim.caseupdategelen_animation)
-                        animationCase.fillAfter=true
-                        caseUpdate_constraint.startAnimation(animationCase)
-                    }
-                    //
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }
@@ -143,10 +166,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-            //For Spinner
-
-
-
+        //For Spinner
 
 
     }
