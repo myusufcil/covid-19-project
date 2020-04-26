@@ -1,12 +1,13 @@
 package com.application
 
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.item_case_update_card.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.ref.WeakReference
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerViewCaseUpdate: RecyclerView
 
     private val caseUpdateList = mutableListOf<IBaseModel>()
+
+    private lateinit var topRatedListObject:CaseUpdateDTO
+    var arrayCase:ArrayList<CaseUpdateDTO> = ArrayList()
+
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
         override fun onClickListener(position: Int, model: IBaseModel) {
@@ -41,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,20 +56,24 @@ class MainActivity : AppCompatActivity() {
 
         var selectedCountry: String = "USA"
         var arrayCountry: ArrayList<String> = ArrayList()
+//        var arrayCase:ArrayList<CaseUpdateDTO> = ArrayList()
 
-        //var spFirstClick: Boolean =
-         //   true // Searchable Spinner için gerekli,ilk tıklamayı yapıyor ardına hata veriyor. Uygulama açılırken tıklama yapmaması gerekiyor. -- Düzenleme - Gereksizmiş
+//        var spFirstClick: Boolean =
+//            true // Searchable Spinner için gerekli,ilk tıklamayı yapıyor ardına hata veriyor. Uygulama açılırken tıklama yapmaması gerekiyor. -- Düzenleme - Gereksizmiş
+//
+//        var animationCase: Animation
 
-        var animationCase: Animation
 
         var sayac = 0
 
-        // Ülkeleri çekmek için
 
-        val apiService = RetrofitCoronaFactory.getCovidInformation()
+        var apiService = RetrofitCoronaFactory.getCovidInformation()
             .getCoronaForCountries()
         apiService.enqueue(object : Callback<CoronaCountriesInformation> {
-            override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
+            override fun onFailure(
+                call: Call<CoronaCountriesInformation>,
+                t: Throwable
+            ) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
@@ -74,11 +86,51 @@ class MainActivity : AppCompatActivity() {
                         /*var item= CountryDTO(
                             country = _result.country
                         )*/
+
+                        topRatedListObject=CaseUpdateDTO(
+                            totalCases = _result.totalCases,
+                            totalDeaths = _result.totalDeaths,
+                            totalRecovered = _result.totalRecovered,
+                            country = _result.country
+                        )
+
                         arrayCountry.add(_result.country)
+                        arrayCase.add(topRatedListObject)
+
                     }
                 }
             }
         })
+
+
+
+
+
+        // Ülkeleri çekmek için
+
+
+
+//        apiService = RetrofitCoronaFactory.getCovidInformation()
+//            .getCoronaForCountries()
+//        apiService.enqueue(object : Callback<CoronaCountriesInformation> {
+//            override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//            override fun onResponse(
+//                call: Call<CoronaCountriesInformation>,
+//                response: Response<CoronaCountriesInformation>
+//            ) {
+//                response.body().let {
+//                    it!!.result.forEach { _result ->
+//                        /*var item= CountryDTO(
+//                            country = _result.country
+//                        )*/
+//                        arrayCountry.add(_result.country)
+//                    }
+//                }
+//            }
+//        })
 
         //For Spinner - Mustafa
         val spinner = findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
@@ -86,7 +138,7 @@ class MainActivity : AppCompatActivity() {
             val adapter =
                 ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrayCountry)
 
-            spinner.adapter = adapter
+            spinner.adapter = adapter as SpinnerAdapter?
             spinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
 
@@ -97,63 +149,39 @@ class MainActivity : AppCompatActivity() {
                     id: Long
                 ) {
 
-                    //if (!spFirstClick) {
+//                    if (!spFirstClick) {
+
+                        for (i in 0..arrayCase.size-1){
+//            Toast.makeText(this,arrayCase[i].country,Toast.LENGTH_SHORT).show()
+                            Log.d("Ülkeler For",arrayCase[i].country)
+                        }
 
                         selectedCountry = arrayCountry[position]
 
                         //Api Data Pull - Yusuf
                         caseUpdateList.clear()
-                        val apiService = RetrofitCoronaFactory.getCovidInformation()
-                            .getCoronaForCountries()
-                        apiService.enqueue(object : Callback<CoronaCountriesInformation> {
-                            override fun onFailure(
-                                call: Call<CoronaCountriesInformation>,
-                                t: Throwable
-                            ) {
-                                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                            }
 
-                            override fun onResponse(
-                                call: Call<CoronaCountriesInformation>,
-                                response: Response<CoronaCountriesInformation>
-                            ) {
-                                response.body().let {
-                                    it!!.result.forEach { _result ->
-                                        /*var item= CountryDTO(
-                                            country = _result.country
-                                        )*/
+                    if (arrayCase[position].country.equals(selectedCountry)) {
 
-                                        var topRatedListObject = CaseUpdateDTO(
-                                            totalCases = _result.totalCases,
-                                            totalDeaths = _result.totalDeaths,
-                                            totalRecovered = _result.totalRecovered
-                                        )
+                        caseUpdateList.add(arrayCase[position])
+                        recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
 
-                                        if (_result.country.equals(selectedCountry)) {
+                        sayac = 1
 
-                                            caseUpdateList.add(topRatedListObject)
-                                            recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
-
-                                            sayac = 1
-
-                                        }
-                                    }
-                                }
-                            }
-                        })
-
+                    }
                         //
                         //Animasyon Case Update - Mustafa
-                        if (sayac == 1) {
-                            animationCase = AnimationUtils.loadAnimation(
-                                this@MainActivity,
-                                R.anim.caseupdategelen_animation
-                            )
-                            animationCase.fillAfter = true
-                            caseUpdate_constraint.startAnimation(animationCase)
-                        }
+//                        if (sayac == 1) {
+//                            animationCase = AnimationUtils.loadAnimation(
+//                                this@MainActivity,
+//                                R.anim.caseupdategelen_animation
+//                            )
+//                            animationCase.fillAfter = true
+//                            caseUpdate_constraint.startAnimation(animationCase)
+//                        }
 
-                    //}
+//                    }else
+//                        spFirstClick=false
 //                    Toast.makeText(this@MainActivity, "Seç" + " " + "" + testicerik[position], Toast.LENGTH_SHORT).show()
 
                     //
@@ -183,4 +211,9 @@ class MainActivity : AppCompatActivity() {
         )
         recyclerViewCaseUpdate.adapter = recyclerViewCaseUpdateAdapter
     }
+
+
+
+
+
 }
