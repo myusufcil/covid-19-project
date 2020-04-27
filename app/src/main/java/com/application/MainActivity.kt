@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         var selectedCountry: String = "USA"
         var arrayCountry: ArrayList<String> = ArrayList()
+
 //        var arrayCase:ArrayList<CaseUpdateDTO> = ArrayList()
 
 //        var spFirstClick: Boolean =
@@ -87,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                         arrayCase.add(topRatedListObject)
 
                     }
+                    caseUpdateList.add(arrayCase[0])
+                    recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
                 }
             }
         })
