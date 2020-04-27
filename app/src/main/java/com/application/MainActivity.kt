@@ -1,13 +1,12 @@
 package com.application
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.application.dto.CaseUpdateDTO
 import com.application.model.CoronaCountriesInformation
 import com.application.model.IBaseModel
 import com.application.network.RetrofitCoronaFactory
-import kotlinx.android.synthetic.main.item_case_update_card.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,9 +61,8 @@ class MainActivity : AppCompatActivity() {
             .getCoronaForCountries()
         apiService.enqueue(object : Callback<CoronaCountriesInformation> {
             override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.d("Başarısız","Başarısız")
             }
-
             override fun onResponse(
                 call: Call<CoronaCountriesInformation>,
                 response: Response<CoronaCountriesInformation>
@@ -80,9 +77,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
-        //
-
         //For Spinner - Mustafa
         val spinner = findViewById<Spinner>(R.id.country_spinner)
         if (spinner != null) {

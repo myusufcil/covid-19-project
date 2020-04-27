@@ -8,7 +8,6 @@ package com.application.model
 interface IBaseModel{
     val type :Int
     companion object{
-       // const val TYPE_COVİD_VIRUSES_BY_COUNTRIES=1
         const val TYPE_CASE_UPDATE=1
     }
 }

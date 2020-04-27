@@ -15,7 +15,6 @@ class RetrofitCoronaFactory {
     companion object{
         var BASE_URL="https://api.collectapi.com/"
         fun getCovidInformation():IApiService{
-
             val logInterceptor = HttpLoggingInterceptor()
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
             val client = OkHttpClient.Builder()
