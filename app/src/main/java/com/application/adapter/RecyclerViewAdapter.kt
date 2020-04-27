@@ -7,7 +7,7 @@ import com.application.covid_19.R
 import com.application.model.IBaseModel
 import com.application.viewholder.BaseViewHolder
 import com.application.viewholder.CaseUpdateViewHolder
-import com.application.viewholder.PreventionViewHolder
+import com.application.viewholder.CoronaNewsViewHolder
 
 /*
   Created by Muhammed Yusuf ÇİL
@@ -30,6 +30,14 @@ class RecyclerViewAdapter(
                         false
                     )
                 )
+            IBaseModel.TYPE_NEWS ->
+                CoronaNewsViewHolder(
+                layoutInflater.inflate(
+                    R.layout.item_news_card,
+                    parent,
+                    false
+                )
+            )
             else ->
                 throw IllegalArgumentException("Invalid view type")
         }
@@ -39,14 +47,15 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when (items[position].type) {
-      /*      IBaseModel.TYPE_COVİD_VIRUSES_BY_COUNTRIES ->
-                (holder as PreventionViewHolder).bindView(
+            IBaseModel.TYPE_CASE_UPDATE ->
+                (holder as CaseUpdateViewHolder).bindView(
                     items[position],
                     position,
                     recyclerViewClickListener
-                )*/
-            IBaseModel.TYPE_CASE_UPDATE ->
-                (holder as CaseUpdateViewHolder).bindView(
+                )
+
+            IBaseModel.TYPE_NEWS ->
+                (holder as CoronaNewsViewHolder).bindView(
                     items[position],
                     position,
                     recyclerViewClickListener

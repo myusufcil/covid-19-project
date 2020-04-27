@@ -11,7 +11,8 @@ import com.application.model.IBaseModel
 data class CaseUpdateDTO(
     var totalDeaths: String,
     var totalRecovered: String,
-    var totalCases: String
+    var totalCases: String,
+    var country:String
 ) : IBaseModel {
     override val type: Int
         get() = IBaseModel.TYPE_CASE_UPDATE
