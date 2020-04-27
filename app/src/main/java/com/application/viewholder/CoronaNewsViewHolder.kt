@@ -40,17 +40,15 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
         }
 
         rootView.setOnClickListener {
-            var deneme:MainActivity=MainActivity()
-            deneme.contextMain
-            var context:Context
+
+
             var bundle= Bundle()
-            //Eğer ki contexti verebilrsen olay bitecek ama ben veremedim başarılar dilerim.
-            // Kanka bunu bozma sanırım olması gereken tamamiyle bu olmasada bu yiyor. Yalnız buraya bile girmeden program hata veriyor
-            val intent = Intent(deneme.contextMain.applicationContext, NewsDetailActivity::class.java)
+
+            val intent = Intent(rootView.context, NewsDetailActivity::class.java)
 
 //            val i : Intent  by lazy { Intent(androidx.activity.ComponentActivity, MainActivity::class.java) }
             intent.putExtra("url", item.url)
-            startActivity(deneme.contextMain.applicationContext,intent,bundle)
+            startActivity(rootView.context,intent,bundle)
         }
     }
 }

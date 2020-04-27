@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
     lateinit var recyclerViewNewsAdapter: RecyclerViewAdapter
 
-    lateinit var  contextMain:Context
+
 
     lateinit var recyclerViewCaseUpdate: RecyclerView
     lateinit var recyclerViewNews: RecyclerView
