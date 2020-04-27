@@ -16,11 +16,11 @@
         android:text="Baslik"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_news"
+        app:layout_constraintStart_toEndOf="@+id/iv_news_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_news"
+        android:id="@+id/iv_news_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

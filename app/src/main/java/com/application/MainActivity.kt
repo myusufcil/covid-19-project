@@ -15,7 +15,9 @@ import com.application.adapter.IRecyclerViewClickListener
 import com.application.adapter.RecyclerViewAdapter
 import com.application.covid_19.R
 import com.application.dto.CaseUpdateDTO
+import com.application.dto.NewsDTO
 import com.application.model.CoronaCountriesInformation
+import com.application.model.CoronaNewsInformation
 import com.application.model.IBaseModel
 import com.application.network.RetrofitCoronaFactory
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -29,12 +31,19 @@ import java.lang.ref.WeakReference
 class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
+    lateinit var recyclerViewNewsAdapter: RecyclerViewAdapter
+
     lateinit var recyclerViewCaseUpdate: RecyclerView
+    lateinit var recyclerViewNews: RecyclerView
 
     private val caseUpdateList = mutableListOf<IBaseModel>()
+    private val newsListBaseModel = mutableListOf<IBaseModel>()
 
-    private lateinit var topRatedListObject:CaseUpdateDTO
-    var arrayCase:ArrayList<CaseUpdateDTO> = ArrayList()
+    private lateinit var topRatedListObject: CaseUpdateDTO
+    var arrayCase: ArrayList<CaseUpdateDTO> = ArrayList()
+
+
+    private lateinit var newsListObject: NewsDTO
 
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
@@ -46,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,12 +90,12 @@ class MainActivity : AppCompatActivity() {
                 response: Response<CoronaCountriesInformation>
             ) {
                 response.body().let {
-                    it!!.result.forEach { _result ->
+                    it!!.result.forEach() { _result ->
                         /*var item= CountryDTO(
                             country = _result.country
                         )*/
 
-                        topRatedListObject=CaseUpdateDTO(
+                        topRatedListObject = CaseUpdateDTO(
                             totalCases = _result.totalCases,
                             totalDeaths = _result.totalDeaths,
                             totalRecovered = _result.totalRecovered,
@@ -102,12 +110,33 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        val newsApiService = RetrofitCoronaFactory.getCovidInformation().getCoronaNews()
+        newsApiService.enqueue(object : Callback<CoronaNewsInformation> {
+            override fun onFailure(call: Call<CoronaNewsInformation>, t: Throwable) {
+                Log.d("", "")
+            }
 
+            override fun onResponse(
+                call: Call<CoronaNewsInformation>,
+                response: Response<CoronaNewsInformation>
+            ) {
 
+                response.body().let {
+                    it!!.resultNews.forEach { _result ->
+                        newsListObject = NewsDTO(
+                            name = _result.name,
+                            description = _result.description,
+                            image = _result.image
+                        )
+                        newsListBaseModel.add(newsListObject)
+                        recyclerViewNewsAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
 
 
         // Ülkeleri çekmek için
-
 
 
 //        apiService = RetrofitCoronaFactory.getCovidInformation()
@@ -151,15 +180,15 @@ class MainActivity : AppCompatActivity() {
 
 //                    if (!spFirstClick) {
 
-                        for (i in 0..arrayCase.size-1){
+                    for (i in 0..arrayCase.size - 1) {
 //            Toast.makeText(this,arrayCase[i].country,Toast.LENGTH_SHORT).show()
-                            Log.d("Ülkeler For",arrayCase[i].country)
-                        }
+                        Log.d("Ülkeler For", arrayCase[i].country)
+                    }
 
-                        selectedCountry = arrayCountry[position]
+                    selectedCountry = arrayCountry[position]
 
-                        //Api Data Pull - Yusuf
-                        caseUpdateList.clear()
+                    //Api Data Pull - Yusuf
+                    caseUpdateList.clear()
 
                     if (arrayCase[position].country.equals(selectedCountry)) {
 
@@ -169,8 +198,8 @@ class MainActivity : AppCompatActivity() {
                         sayac = 1
 
                     }
-                        //
-                        //Animasyon Case Update - Mustafa
+                    //
+                    //Animasyon Case Update - Mustafa
 //                        if (sayac == 1) {
 //                            animationCase = AnimationUtils.loadAnimation(
 //                                this@MainActivity,
@@ -212,8 +241,18 @@ class MainActivity : AppCompatActivity() {
         recyclerViewCaseUpdate.adapter = recyclerViewCaseUpdateAdapter
     }
 
-
-
+    private fun getRecyclerNewsViewAdapter() {
+        recyclerViewNews =
+            findViewById(R.id.recyclerViewNews)
+        recyclerViewNewsAdapter =
+            RecyclerViewAdapter(newsListBaseModel, recyclerViewItemClickListener)
+        recyclerViewNews.layoutManager = LinearLayoutManager(
+            applicationContext,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recyclerViewNews.adapter = recyclerViewNewsAdapter
+    }
 
 
 }

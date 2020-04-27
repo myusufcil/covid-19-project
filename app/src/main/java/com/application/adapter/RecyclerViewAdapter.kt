@@ -9,6 +9,7 @@ import com.application.covid_19.R
 import com.application.model.IBaseModel
 import com.application.viewholder.BaseViewHolder
 import com.application.viewholder.CaseUpdateViewHolder
+import com.application.viewholder.CoronaNewsViewHolder
 import com.application.viewholder.PreventionViewHolder
 import kotlinx.android.synthetic.main.item_case_update_card.*
 
@@ -33,6 +34,9 @@ class RecyclerViewAdapter(
                         false
                     )
                 )
+            IBaseModel.TYPE_NEWS ->CoronaNewsViewHolder(layoutInflater.inflate(R.layout.item_news_card,parent,false)
+            )
+
 
 
             else ->
@@ -52,6 +56,13 @@ class RecyclerViewAdapter(
                 )*/
             IBaseModel.TYPE_CASE_UPDATE ->
                 (holder as CaseUpdateViewHolder).bindView(
+                    items[position],
+                    position,
+                    recyclerViewClickListener
+                )
+
+            IBaseModel.TYPE_NEWS ->
+                (holder as CoronaNewsViewHolder).bindView(
                     items[position],
                     position,
                     recyclerViewClickListener
