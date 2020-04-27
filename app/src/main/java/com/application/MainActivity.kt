@@ -21,7 +21,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
@@ -35,21 +34,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var topRatedListObject: CaseUpdateDTO
     var arrayCase: ArrayList<CaseUpdateDTO> = ArrayList()
-
-
     private lateinit var newsListObject: NewsDTO
-
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
         override fun onClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
-
         override fun onLongClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +55,7 @@ class MainActivity : AppCompatActivity() {
 //        var arrayCase:ArrayList<CaseUpdateDTO> = ArrayList()
 
 //        var spFirstClick: Boolean =
-//            true // Searchable Spinner için gerekli,ilk tıklamayı yapıyor ardına hata veriyor. Uygulama açılırken tıklama yapmaması gerekiyor. -- Düzenleme - Gereksizmiş
-//
+//        true // Searchable Spinner için gerekli,ilk tıklamayı yapıyor ardına hata veriyor. Uygulama açılırken tıklama yapmaması gerekiyor. -- Düzenleme - Gereksizmiş
 //        var animationCase: Animation
 
         var sayac = 0
