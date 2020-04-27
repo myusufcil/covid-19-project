@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
 import com.application.adapter.IRecyclerViewClickListener
@@ -14,6 +15,7 @@ import com.application.covid_19.R
 import com.application.dto.NewsDTO
 import com.application.model.IBaseModel
 import com.squareup.picasso.Picasso
+import com.ui.MainActivity
 import com.ui.NewsDetailActivity
 import kotlinx.android.synthetic.main.item_news_card.view.*
 
@@ -38,11 +40,17 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
         }
 
         rootView.setOnClickListener {
+            var deneme:MainActivity=MainActivity()
+            deneme.contextMain
+            var context:Context
             var bundle= Bundle()
             //Eğer ki contexti verebilrsen olay bitecek ama ben veremedim başarılar dilerim.
-            val intent = Intent(this, NewsDetailActivity::class.java)
+            // Kanka bunu bozma sanırım olması gereken tamamiyle bu olmasada bu yiyor. Yalnız buraya bile girmeden program hata veriyor
+            val intent = Intent(deneme.contextMain.applicationContext, NewsDetailActivity::class.java)
+
+//            val i : Intent  by lazy { Intent(androidx.activity.ComponentActivity, MainActivity::class.java) }
             intent.putExtra("url", item.url)
-            startActivity(this,intent,bundle)
+            startActivity(deneme.contextMain.applicationContext,intent,bundle)
         }
     }
 }

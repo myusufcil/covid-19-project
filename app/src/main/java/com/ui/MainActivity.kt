@@ -1,5 +1,6 @@
 package com.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
     lateinit var recyclerViewNewsAdapter: RecyclerViewAdapter
+
+    lateinit var  contextMain:Context
 
     lateinit var recyclerViewCaseUpdate: RecyclerView
     lateinit var recyclerViewNews: RecyclerView
@@ -110,7 +113,8 @@ class MainActivity : AppCompatActivity() {
                         newsListObject = NewsDTO(
                             name = _result.name,
                             description = _result.description,
-                            image = _result.image
+                            image = _result.image,
+                            url = _result.url
                         )
                         newsListBaseModel.add(newsListObject)
                         recyclerViewNewsAdapter.notifyDataSetChanged()
