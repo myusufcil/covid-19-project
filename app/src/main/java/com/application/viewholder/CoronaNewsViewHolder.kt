@@ -15,11 +15,6 @@ import com.application.dto.NewsDTO
 import com.application.model.IBaseModel
 import com.application.ui.NewsDetailActivity
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
 
 /*
 Created by Mustafa Tekkılıç 
@@ -38,9 +33,8 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
         item.let {
             name.text=item.name
             Picasso.get().load(item.image).into(image)
-            //TO DO TARİH PARSE EDİLİP BASILACAK
+            //TODO TARİH PARSE EDİLİP BASILACAK
             newsDate.text=item.date
-
         }
         rootView.setOnClickListener {
             var bundle= Bundle()
