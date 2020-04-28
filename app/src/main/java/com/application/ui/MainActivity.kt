@@ -1,6 +1,5 @@
-package com.ui
+package com.application.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,8 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
     lateinit var recyclerViewNewsAdapter: RecyclerViewAdapter
-
-
 
     lateinit var recyclerViewCaseUpdate: RecyclerView
     lateinit var recyclerViewNews: RecyclerView
@@ -114,7 +111,9 @@ class MainActivity : AppCompatActivity() {
                             name = _result.name,
                             description = _result.description,
                             image = _result.image,
-                            url = _result.url
+                            url = _result.url,
+                            date = _result.date,
+                            source = _result.source
                         )
                         newsListBaseModel.add(newsListObject)
                         recyclerViewNewsAdapter.notifyDataSetChanged()

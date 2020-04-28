@@ -1,4 +1,4 @@
-package com.ui
+package com.application.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +11,7 @@ class NewsDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_detail)
+
         var url=intent.getStringExtra("url")
         webView = findViewById(R.id.newsDetailWebView)
 
