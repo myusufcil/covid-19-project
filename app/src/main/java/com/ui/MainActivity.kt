@@ -114,7 +114,9 @@ class MainActivity : AppCompatActivity() {
                             name = _result.name,
                             description = _result.description,
                             image = _result.image,
-                            url = _result.url
+                            url = _result.url,
+                            date = _result.date,
+                            source = _result.source
                         )
                         newsListBaseModel.add(newsListObject)
                         recyclerViewNewsAdapter.notifyDataSetChanged()
