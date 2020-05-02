@@ -11,6 +11,7 @@
     android:layout_marginBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
@@ -19,19 +20,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <ImageView
             android:id="@+id/iv_news_image"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.282"
             app:srcCompat="@drawable/green_eclipse" />
-
 
         <View
             android:layout_width="match_parent"
@@ -42,11 +45,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_news_date"
             tools:layout_editor_absoluteX="16dp" />
 
+
         <TextView
+
             android:id="@+id/tv_news_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="Yayıncı Kuruluş"
@@ -66,11 +71,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="84dp"
+            android:layout_height="86dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/iv_news_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_news_source">
 
