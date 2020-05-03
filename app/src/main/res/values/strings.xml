@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Covid-19-Project</string>
-    <string-array name="test">
-        <item>USA</item>
-        <item>Turkey</item>
-        <item>China</item>
-        <item>Deneme4</item>
+    <string-array name="diseases">
+        <item>Ateş</item>
+        <item>Öksürük</item>
+        <item>Nefes Darlığı</item>
+        <item>İshal</item>
+        <item>Bulantı - Kusma</item>
+        <item>Baş Ağrısı</item>
+        <item>Burun Akıntısı</item>
+        <item>Halsizlik</item>
+        <item>Vücut Ağrısı</item>
     </string-array>
 </resources>

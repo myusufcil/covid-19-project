@@ -1,5 +1,6 @@
 package com.application.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,6 +18,7 @@ import com.application.model.CoronaNewsInformation
 import com.application.model.IBaseModel
 import com.application.network.RetrofitCoronaFactory
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,6 +62,16 @@ class MainActivity : AppCompatActivity() {
 //        var animationCase: Animation
 
         var sayac = 0
+
+        //Intent Menu
+
+        iv_intent_menu.setOnClickListener {
+//            Log.d("Menu","Intent Menu basıldı")
+            var intent=Intent(this,psActivity::class.java)
+            startActivity(intent)
+        }
+
+        //--Intent Menu
 
 
         var apiService = RetrofitCoronaFactory.getCovidInformation()

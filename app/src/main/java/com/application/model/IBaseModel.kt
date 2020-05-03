@@ -10,6 +10,7 @@ interface IBaseModel{
     companion object{
         const val TYPE_CASE_UPDATE=1
         const val TYPE_NEWS=2
+        const val TYPE_SYMPTOMS=3
     }
 }
 

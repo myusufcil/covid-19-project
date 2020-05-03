@@ -8,6 +8,7 @@ import com.application.model.IBaseModel
 import com.application.viewholder.BaseViewHolder
 import com.application.viewholder.CaseUpdateViewHolder
 import com.application.viewholder.CoronaNewsViewHolder
+import com.application.viewholder.SymptomsViewHolder
 
 /*
   Created by Muhammed Yusuf ÇİL
@@ -38,6 +39,15 @@ class RecyclerViewAdapter(
                     false
                 )
             )
+            IBaseModel.TYPE_SYMPTOMS->
+                SymptomsViewHolder(
+                    layoutInflater.inflate(
+                        R.layout.item_symptoms_card,
+                        parent,
+                        false
+                    )
+                )
+
             else ->
                 throw IllegalArgumentException("Invalid view type")
         }
@@ -56,6 +66,12 @@ class RecyclerViewAdapter(
 
             IBaseModel.TYPE_NEWS ->
                 (holder as CoronaNewsViewHolder).bindView(
+                    items[position],
+                    position,
+                    recyclerViewClickListener
+                )
+            IBaseModel.TYPE_SYMPTOMS->
+                (holder as SymptomsViewHolder).bindView(
                     items[position],
                     position,
                     recyclerViewClickListener
