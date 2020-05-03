@@ -4,11 +4,11 @@ import com.application.model.IBaseModel
 
 data class SymptomsDTO(
 
-    var picsSymptoms:Int,
-    var nameSymptoms:String
+    var picsSymptoms: Int,
+    var nameSymptoms: String
 
-):IBaseModel{
+) : IBaseModel {
     override val type: Int
-        get()= IBaseModel.TYPE_SYMPTOMS
+        get() = IBaseModel.TYPE_SYMPTOMS
 
 }

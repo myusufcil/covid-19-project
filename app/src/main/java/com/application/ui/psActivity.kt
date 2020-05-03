@@ -1,5 +1,6 @@
 package com.application.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,15 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
 import com.application.adapter.RecyclerViewAdapter
 import com.application.covid_19.R
+import com.application.dto.PreventionDTO
 import com.application.dto.SymptomsDTO
 import com.application.model.IBaseModel
+import kotlinx.android.synthetic.main.activity_ps.*
 
 class psActivity : AppCompatActivity() {
 
     lateinit var recyclerViewSymptomsAdapter: RecyclerViewAdapter
     lateinit var recyclerViewSymptoms: RecyclerView
     private var symptomsListBaseModel = mutableListOf<IBaseModel>()
-    lateinit private var symptomsListObject:SymptomsDTO
+    lateinit private var symptomsListObject: SymptomsDTO
+
+    lateinit var recyclerViewPreventionAdapter: RecyclerViewAdapter
+    lateinit var recyclerViewPrevention: RecyclerView
+    private var preventionListBaseModel = mutableListOf<IBaseModel>()
+    lateinit private var preventionListObject: PreventionDTO
 
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
@@ -28,8 +36,11 @@ class psActivity : AppCompatActivity() {
         }
     }
 
-    lateinit var symptomsPics:ArrayList<Int>
-     var symptomsName= arrayOf("")
+    lateinit var symptomsPics: ArrayList<Int>
+    var symptomsName = arrayOf("")
+
+    lateinit var preventionPics: ArrayList<Int>
+    var preventionDescription = arrayOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +49,8 @@ class psActivity : AppCompatActivity() {
         readyToDataSource()
         getRecyclerViewAdapter()
 
-        for(position in 0..symptomsPics.size-1){
-            symptomsListObject= SymptomsDTO(
+        for (position in 0..symptomsPics.size - 1) {
+            symptomsListObject = SymptomsDTO(
                 picsSymptoms = symptomsPics[position],
                 nameSymptoms = symptomsName[position]
             )
@@ -47,6 +58,23 @@ class psActivity : AppCompatActivity() {
             recyclerViewSymptomsAdapter.notifyDataSetChanged()
         }
 
+        for (position in 0..preventionPics.size - 1) {
+            preventionListObject = PreventionDTO(
+                picsPrevention = preventionPics[position],
+                descriptionPrevention = preventionDescription[position]
+            )
+            preventionListBaseModel.add(preventionListObject)
+            recyclerViewPreventionAdapter.notifyDataSetChanged()
+        }
+
+
+        iv_intent_ps_menu.setOnClickListener {
+
+            val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.intent_zoom_out,R.anim.static_animation)
+
+        }
 
     }
 
@@ -63,10 +91,31 @@ class psActivity : AppCompatActivity() {
             R.drawable.vucut_agrisi64
         )
 
-        symptomsName=resources.getStringArray(R.array.diseases)
+        symptomsName = resources.getStringArray(R.array.symptomsArray)
+
+
+        preventionPics = arrayListOf(
+            R.drawable.agzini_kapa_pre1,
+            R.drawable.dezenfektan_kullan_pre2,
+            R.drawable.el_sikisma_pre3,
+            R.drawable.el_yikama_pre4,
+            R.drawable.evde_kal_pre5,
+            R.drawable.kalabalik_ortam_pre6,
+            R.drawable.maske_kullan_pre7,
+            R.drawable.ortami_temizle_pre8,
+            R.drawable.sosyal_mesafe_pre9,
+            R.drawable.supheli_durum_pre10,
+            R.drawable.uyku_duzeni_pre11,
+            R.drawable.yuzune_dokunma_pre12
+        )
+
+        preventionDescription = resources.getStringArray(R.array.preventionArray)
+
+
     }
 
     private fun getRecyclerViewAdapter() {
+        //Recyclerview Symptoms
         recyclerViewSymptoms =
             findViewById(R.id.recyclerViewSymptoms)
         recyclerViewSymptomsAdapter =
@@ -77,6 +126,15 @@ class psActivity : AppCompatActivity() {
             false
         )
         recyclerViewSymptoms.adapter = recyclerViewSymptomsAdapter
+
+        //Recyclerview Prevention
+
+        recyclerViewPrevention = findViewById(R.id.recyclerViewPrevention)
+        recyclerViewPreventionAdapter =
+            RecyclerViewAdapter(preventionListBaseModel, recyclerViewItemClickListener)
+        recyclerViewPrevention.layoutManager =
+            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+        recyclerViewPrevention.adapter = recyclerViewPreventionAdapter
     }
 
 }

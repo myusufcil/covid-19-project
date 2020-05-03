@@ -55,9 +55,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/acme"
+                    android:textColor="#565d47"
                     android:text="Güncel Vaka"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/azure4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/country_spinner" />
 
@@ -72,13 +72,13 @@
 
                 <ImageView
                     android:id="@+id/iv_intent_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView"
-                    app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+                    app:srcCompat="@drawable/forward" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -104,6 +104,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/acme"
+                android:textColor="#565d47"
                 android:text="Haberler"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

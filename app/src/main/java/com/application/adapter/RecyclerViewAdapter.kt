@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.application.covid_19.R
 import com.application.model.IBaseModel
-import com.application.viewholder.BaseViewHolder
-import com.application.viewholder.CaseUpdateViewHolder
-import com.application.viewholder.CoronaNewsViewHolder
-import com.application.viewholder.SymptomsViewHolder
+import com.application.viewholder.*
 
 /*
   Created by Muhammed Yusuf ÇİL
@@ -33,16 +30,24 @@ class RecyclerViewAdapter(
                 )
             IBaseModel.TYPE_NEWS ->
                 CoronaNewsViewHolder(
-                layoutInflater.inflate(
-                    R.layout.item_news_card,
-                    parent,
-                    false
+                    layoutInflater.inflate(
+                        R.layout.item_news_card,
+                        parent,
+                        false
+                    )
                 )
-            )
-            IBaseModel.TYPE_SYMPTOMS->
+            IBaseModel.TYPE_SYMPTOMS ->
                 SymptomsViewHolder(
                     layoutInflater.inflate(
                         R.layout.item_symptoms_card,
+                        parent,
+                        false
+                    )
+                )
+            IBaseModel.TYPE_PREVENTION ->
+                PreventionViewHolder(
+                    layoutInflater.inflate(
+                        R.layout.item_prevention_card,
                         parent,
                         false
                     )
@@ -70,8 +75,14 @@ class RecyclerViewAdapter(
                     position,
                     recyclerViewClickListener
                 )
-            IBaseModel.TYPE_SYMPTOMS->
+            IBaseModel.TYPE_SYMPTOMS ->
                 (holder as SymptomsViewHolder).bindView(
+                    items[position],
+                    position,
+                    recyclerViewClickListener
+                )
+            IBaseModel.TYPE_PREVENTION ->
+                (holder as PreventionViewHolder).bindView(
                     items[position],
                     position,
                     recyclerViewClickListener

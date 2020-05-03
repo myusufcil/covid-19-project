@@ -35,6 +35,8 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
     var image:ImageView= view.findViewById(R.id.iv_news_image)
     var rootView:ConstraintLayout=view.findViewById(R.id.newsCardViewRoot)
 
+    lateinit var dateFormat:String
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun bindView(baseModel: IBaseModel, position: Int, click: IRecyclerViewClickListener) {
         val item = baseModel as NewsDTO
@@ -57,7 +59,7 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
                 e.printStackTrace()
             }
 //            val clockFormat = clockOutput.format(d)
-            val dateFormat = dateOutput.format(d)
+            dateFormat = dateOutput.format(d)
             date.text=dateFormat
 
             //
@@ -73,7 +75,10 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
         rootView.setOnClickListener {
             var bundle= Bundle()
             val intent = Intent(rootView.context, NewsDetailActivity::class.java)
-            intent.putExtra("url", item.url)
+            intent.putExtra("image", item.image)
+            intent.putExtra("date", dateFormat)
+            intent.putExtra("source", item.source)
+            intent.putExtra("description", item.description)
             startActivity(rootView.context,intent,bundle)
         }
     }

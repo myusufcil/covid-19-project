@@ -11,6 +11,7 @@ interface IBaseModel{
         const val TYPE_CASE_UPDATE=1
         const val TYPE_NEWS=2
         const val TYPE_SYMPTOMS=3
+        const val TYPE_PREVENTION=4
     }
 }
 

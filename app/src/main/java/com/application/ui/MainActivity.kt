@@ -1,5 +1,7 @@
 package com.application.ui
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -69,6 +71,8 @@ class MainActivity : AppCompatActivity() {
 //            Log.d("Menu","Intent Menu basıldı")
             var intent=Intent(this,psActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.intent_zoom_in,R.anim.static_animation)
+
         }
 
         //--Intent Menu
