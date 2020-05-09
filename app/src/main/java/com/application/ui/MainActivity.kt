@@ -1,10 +1,10 @@
 package com.application.ui
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         override fun onClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+
         override fun onLongClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
@@ -65,13 +67,35 @@ class MainActivity : AppCompatActivity() {
 
         var sayac = 0
 
+
+        //Bottom Bar Function
+
+        chipMenuMain.setOnItemSelectedListener {
+
+            when (it) {
+//                R.id.home_menu -> {
+//                    var intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(R.anim.main_slide_top, R.anim.main_slide_bottom)
+//                }
+                R.id.wear_mask_menu->{
+                    val intent=Intent(this,psActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
+                }
+            }
+        }
+
+
+        //Bottom Bar Function
+
         //Intent Menu
 
         iv_intent_menu.setOnClickListener {
-//            Log.d("Menu","Intent Menu basıldı")
-            var intent=Intent(this,psActivity::class.java)
+            //            Log.d("Menu","Intent Menu basıldı")
+            var intent = Intent(this, psActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.intent_zoom_in,R.anim.static_animation)
+            overridePendingTransition(R.anim.main_slide_top, R.anim.main_slide_bottom)
 
         }
 
@@ -120,8 +144,8 @@ class MainActivity : AppCompatActivity() {
                 call: Call<CoronaNewsInformation>,
                 response: Response<CoronaNewsInformation>
             ) {
-                Log.d("başarılı","başarılı")
-               response.body().let {
+                Log.d("başarılı", "başarılı")
+                response.body().let {
                     it!!.result.forEach { _result ->
                         newsListObject = NewsDTO(
                             name = _result.name,
@@ -251,4 +275,28 @@ class MainActivity : AppCompatActivity() {
         )
         recyclerViewNews.adapter = recyclerViewNewsAdapter
     }
+
+    //Bottom Bar Menu
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.bottom_bar_chip, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home_menu -> {
+                Toast.makeText(applicationContext, "Deneemeeeee", Toast.LENGTH_LONG).show()
+                true
+            }
+            R.id.wear_mask_menu -> {
+                Log.d("Wear Menu", "Tıklandı")
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    //Bottom Bar Menu
 }

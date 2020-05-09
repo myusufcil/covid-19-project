@@ -11,6 +11,7 @@ import com.application.covid_19.R
 import com.application.dto.PreventionDTO
 import com.application.dto.SymptomsDTO
 import com.application.model.IBaseModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_ps.*
 
 class psActivity : AppCompatActivity() {
@@ -72,8 +73,23 @@ class psActivity : AppCompatActivity() {
 
             val intent=Intent(this,MainActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.intent_zoom_out,R.anim.static_animation)
+            overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
 
+        }
+        chipMenuPs.setOnItemSelectedListener {
+
+            when (it) {
+                R.id.home_menu -> {
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.main_slide_top, R.anim.main_slide_bottom)
+                }
+//                R.id.wear_mask_menu->{
+//                    val intent=Intent(this,psActivity::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
+//                }
+            }
         }
 
     }
