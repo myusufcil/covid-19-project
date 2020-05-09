@@ -13,7 +13,6 @@ import com.application.adapter.IRecyclerViewClickListener
 import com.application.covid_19.R
 import com.application.dto.NewsDTO
 import com.application.model.IBaseModel
-import com.application.ui.NewsDetailActivity
 import com.squareup.picasso.Picasso
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -59,7 +58,7 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
 
         rootView.setOnClickListener {
             var bundle= Bundle()
-            val intent = Intent(rootView.context, NewsDetailActivity::class.java)
+            val intent = Intent(rootView.context, CaseUpdateViewHolder::class.java)
             intent.putExtra("image", item.image)
             intent.putExtra("date", dateFormat)
             intent.putExtra("source", item.source)

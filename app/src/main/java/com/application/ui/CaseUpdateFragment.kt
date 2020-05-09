@@ -2,9 +2,14 @@ package com.application.ui
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.SpinnerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
@@ -21,7 +26,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+class CaseUpdateFragment : Fragment() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
     lateinit var recyclerViewNewsAdapter: RecyclerViewAdapter
@@ -36,31 +44,40 @@ class MainActivity : AppCompatActivity() {
     var arrayCase: ArrayList<CaseUpdateDTO> = ArrayList()
     private lateinit var newsListObject: NewsDTO
 
+    private lateinit var getView:View
+
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
         override fun onClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+
         override fun onLongClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        getView=inflater.inflate(R.layout.fragment_case_update, container, false)
         getRecyclerViewAdapter()
 
         var selectedCountry: String = "USA"
         var arrayCountry: ArrayList<String> = ArrayList()
-
-//        var arrayCase:ArrayList<CaseUpdateDTO> = ArrayList()
-
-//        var spFirstClick: Boolean =
-//        true // Searchable Spinner için gerekli,ilk tıklamayı yapıyor ardına hata veriyor. Uygulama açılırken tıklama yapmaması gerekiyor. -- Düzenleme - Gereksizmiş
-//        var animationCase: Animation
-
-        var sayac = 0
-
 
         var apiService = RetrofitCoronaFactory.getCovidInformation()
             .getCoronaForCountries()
@@ -104,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 call: Call<CoronaNewsInformation>,
                 response: Response<CoronaNewsInformation>
             ) {
-                Log.d("başarılı","başarılı")
+                Log.d("başarılı", "başarılı")
                 response.body().let {
                     it!!.result.forEach { _result ->
                         newsListObject = NewsDTO(
@@ -123,37 +140,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-        // Ülkeleri çekmek için
-
-
-//        apiService = RetrofitCoronaFactory.getCovidInformation()
-//            .getCoronaForCountries()
-//        apiService.enqueue(object : Callback<CoronaCountriesInformation> {
-//            override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
-//              Log.d("","")
-//            }
-//
-//            override fun onResponse(
-//                call: Call<CoronaCountriesInformation>,
-//                response: Response<CoronaCountriesInformation>
-//            ) {
-//                response.body().let {
-//                    it!!.result.forEach { _result ->
-//                        /*var item= CountryDTO(
-//                            country = _result.country
-//                        )*/
-//                        arrayCountry.add(_result.country)
-//                    }
-//                }
-//            }
-//        })
-
         //For Spinner - Mustafa
-        val spinner = findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
+        val spinner = getView.findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
         if (spinner != null) {
             val adapter =
-                ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, arrayCountry)
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayCountry)
 
             spinner.adapter = adapter as SpinnerAdapter?
             spinner.onItemSelectedListener = object :
@@ -169,7 +160,7 @@ class MainActivity : AppCompatActivity() {
 //                    if (!spFirstClick) {
 
                     for (i in 0..arrayCase.size - 1) {
-//            Toast.makeText(this,arrayCase[i].country,Toast.LENGTH_SHORT).show()
+
                         Log.d("Ülkeler For", arrayCase[i].country)
                     }
 
@@ -182,24 +173,7 @@ class MainActivity : AppCompatActivity() {
 
                         caseUpdateList.add(arrayCase[position])
                         recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
-
-                        sayac = 1
-
                     }
-                    //Animasyon Case Update - Mustafa
-//                        if (sayac == 1) {
-//                            animationCase = AnimationUtils.loadAnimation(
-//                                this@MainActivity,
-//                                R.anim.caseupdategelen_animation
-//                            )
-//                            animationCase.fillAfter = true
-//                            caseUpdate_constraint.startAnimation(animationCase)
-//                        }
-
-//                    }else
-//                        spFirstClick=false
-//                    Toast.makeText(this@MainActivity, "Seç" + " " + "" + testicerik[position], Toast.LENGTH_SHORT).show()
-                    //
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -207,16 +181,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        return getView
+
     }
 
     private fun getRecyclerViewAdapter() {
         //ReycyclerViewCaseUpdateAdapter
-        recyclerViewCaseUpdate =
-            findViewById(R.id.recyclerViewCaseUpdate)
+        recyclerViewCaseUpdate = getView.findViewById(R.id.recyclerViewCaseUpdate)
         recyclerViewCaseUpdateAdapter =
             RecyclerViewAdapter(caseUpdateList, recyclerViewItemClickListener)
         recyclerViewCaseUpdate.layoutManager = LinearLayoutManager(
-            applicationContext,
+            requireContext(),
             LinearLayoutManager.VERTICAL,
             false
         )
@@ -224,15 +199,26 @@ class MainActivity : AppCompatActivity() {
 
 
         //RecyclerviewNewsAdapter
-        recyclerViewNews =
-            findViewById(R.id.recyclerViewNews)
+        recyclerViewNews = getView.findViewById(R.id.recyclerViewNews)
         recyclerViewNewsAdapter =
             RecyclerViewAdapter(newsListBaseModel, recyclerViewItemClickListener)
         recyclerViewNews.layoutManager = LinearLayoutManager(
-            applicationContext,
+            requireContext(),
             LinearLayoutManager.VERTICAL,
             false
         )
         recyclerViewNews.adapter = recyclerViewNewsAdapter
+    }
+
+    companion object {
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            CaseUpdateFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
     }
 }

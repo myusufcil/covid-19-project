@@ -1,21 +1,26 @@
 package com.application.ui
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
 import com.application.adapter.RecyclerViewAdapter
+
 import com.application.covid_19.R
 import com.application.dto.PreventionDTO
 import com.application.dto.SymptomsDTO
 import com.application.model.IBaseModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_ps.*
 
-class PreventionActivity : AppCompatActivity() {
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+class PreventionFragment : Fragment() {
 
     lateinit var recyclerViewSymptomsAdapter: RecyclerViewAdapter
     lateinit var recyclerViewSymptoms: RecyclerView
@@ -26,6 +31,8 @@ class PreventionActivity : AppCompatActivity() {
     lateinit var recyclerViewPrevention: RecyclerView
     private var preventionListBaseModel = mutableListOf<IBaseModel>()
     lateinit private var preventionListObject: PreventionDTO
+
+    private lateinit var getView:View
 
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
@@ -44,9 +51,25 @@ class PreventionActivity : AppCompatActivity() {
     lateinit var preventionPics: ArrayList<Int>
     var preventionDescription = arrayOf("")
 
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ps)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+
+        getView=inflater.inflate(R.layout.fragment_prevention, container, false)
 
         readyToDataSource()
         getRecyclerViewAdapter()
@@ -69,22 +92,9 @@ class PreventionActivity : AppCompatActivity() {
             recyclerViewPreventionAdapter.notifyDataSetChanged()
         }
 
-
-        iv_intent_ps_menu.setOnClickListener {
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.ps_slide_top, R.anim.ps_slide_bottom)
-
-        }
+        return getView
     }
-    private fun loadFragment(fragment: Fragment) {
-        // load fragment
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
+
 
     private fun readyToDataSource() {
         symptomsPics = arrayListOf(
@@ -125,11 +135,11 @@ class PreventionActivity : AppCompatActivity() {
     private fun getRecyclerViewAdapter() {
         //Recyclerview Symptoms
         recyclerViewSymptoms =
-            findViewById(R.id.recyclerViewSymptoms)
+            getView.findViewById(R.id.recyclerViewSymptoms)
         recyclerViewSymptomsAdapter =
             RecyclerViewAdapter(symptomsListBaseModel, recyclerViewItemClickListener)
         recyclerViewSymptoms.layoutManager = LinearLayoutManager(
-            applicationContext,
+            requireContext(),
             LinearLayoutManager.HORIZONTAL,
             false
         )
@@ -137,12 +147,23 @@ class PreventionActivity : AppCompatActivity() {
 
         //Recyclerview Prevention
 
-        recyclerViewPrevention = findViewById(R.id.recyclerViewPrevention)
+        recyclerViewPrevention = getView.findViewById(R.id.recyclerViewPrevention)
         recyclerViewPreventionAdapter =
             RecyclerViewAdapter(preventionListBaseModel, recyclerViewItemClickListener)
         recyclerViewPrevention.layoutManager =
-            LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerViewPrevention.adapter = recyclerViewPreventionAdapter
     }
 
+    companion object {
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            PreventionFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
 }
