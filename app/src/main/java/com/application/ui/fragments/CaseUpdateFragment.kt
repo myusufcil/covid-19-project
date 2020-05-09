@@ -1,4 +1,4 @@
-package com.application.fragments
+package com.application.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -26,16 +26,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CaseUpdateFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CaseUpdateFragment : Fragment() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
@@ -52,8 +45,6 @@ class CaseUpdateFragment : Fragment() {
     private lateinit var newsListObject: NewsDTO
 
     private lateinit var getView:View
-
-
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
         override fun onClickListener(position: Int, model: IBaseModel) {
@@ -108,7 +99,9 @@ class CaseUpdateFragment : Fragment() {
                             totalCases = _result.totalCases,
                             totalDeaths = _result.totalDeaths,
                             totalRecovered = _result.totalRecovered,
-                            country = _result.country
+                            country = _result.country,
+                            newDeaths = _result.newDeaths,
+                            newCases = _result.newCases
                         )
                         arrayCountry.add(_result.country)
                         arrayCase.add(topRatedListObject)
@@ -182,10 +175,6 @@ class CaseUpdateFragment : Fragment() {
 
                         caseUpdateList.add(arrayCase[position])
                         recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
-
-
-
-
                     }
                 }
 
@@ -224,14 +213,6 @@ class CaseUpdateFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CaseUpdateFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

@@ -22,5 +22,8 @@
     <color name="azure4">#838B8B</color>
     <color name="cyan">#B2EBF2</color>
     <color name="green">#558B2F</color>
+    <color name="infected_orange">#f7941d</color>
+    <color name="death_red">#ff0404</color>
+    <color name="recovered_green">#20ba15</color>
 
 </resources>

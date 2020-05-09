@@ -12,5 +12,4 @@ data class NewsDTO(
 ):IBaseModel{
     override val type: Int
         get() = IBaseModel.TYPE_NEWS
-
 }

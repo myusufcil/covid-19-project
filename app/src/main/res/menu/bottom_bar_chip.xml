@@ -6,14 +6,14 @@
     <item
         android:id="@+id/home_menu"
         android:icon="@drawable/home_menu_chip"
-        android:title="Güncel Bilgiler"
+        android:title="@string/updated_info"
         app:cnb_iconColor="#015668"
         />
 
     <item
         android:id="@+id/wear_mask_menu"
         android:icon="@drawable/wear_mask_menu_chip"
-        android:title="Belirti - Önlemler"
+        android:title="@string/symptoms_prevention"
         app:cnb_iconColor="#015668"
         />
 </menu>
