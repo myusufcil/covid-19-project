@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
@@ -67,14 +68,15 @@ class MainActivity : AppCompatActivity() {
 
         var sayac = 0
 
-
         //Bottom Bar Function
            chipMenuMain.setOnItemSelectedListener {
-
                 when (it) {
                     R.id.wear_mask_menu->{
-                        val intent=Intent(this,PreventionActivity::class.java)
-                        startActivity(intent)
+                        loadFragment(PreventionFragment())
+                        overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
+                    }
+                    R.id.home_menu->{
+                        loadFragment(HomeFragment())
                         overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
                     }
                 }
@@ -206,6 +208,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.deneme, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     private fun getRecyclerViewAdapter() {

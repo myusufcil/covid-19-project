@@ -3,6 +3,7 @@ package com.application.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
@@ -76,23 +77,13 @@ class PreventionActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.ps_slide_top, R.anim.ps_slide_bottom)
 
         }
-        chipMenuPs.setOnItemSelectedListener{
-            when (it) {
-                R.id.home_menu -> {
-                    var intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.main_slide_top, R.anim.main_slide_bottom)
-                }
-//                R.id.wear_mask_menu->{
-//                    val intent=Intent(this,psActivity::class.java)
-//                    startActivity(intent)
-//                    overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
-//                }
-            }
-        }
-
-
-
+    }
+    private fun loadFragment(fragment: Fragment) {
+        // load fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     private fun readyToDataSource() {
