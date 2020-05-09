@@ -1,7 +1,5 @@
 package com.application.ui
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -69,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         iv_intent_menu.setOnClickListener {
 //            Log.d("Menu","Intent Menu basıldı")
-            var intent=Intent(this,psActivity::class.java)
+            var intent=Intent(this,PreventionActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.intent_zoom_in,R.anim.static_animation)
 
@@ -102,7 +100,6 @@ class MainActivity : AppCompatActivity() {
                         )
                         arrayCountry.add(_result.country)
                         arrayCase.add(topRatedListObject)
-
                     }
                     caseUpdateList.add(arrayCase[0])
                     recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
@@ -141,8 +138,6 @@ class MainActivity : AppCompatActivity() {
 
 
         // Ülkeleri çekmek için
-
-
 //        apiService = RetrofitCoronaFactory.getCovidInformation()
 //            .getCoronaForCountries()
 //        apiService.enqueue(object : Callback<CoronaCountriesInformation> {
@@ -181,9 +176,6 @@ class MainActivity : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-
-//                    if (!spFirstClick) {
-
                     for (i in 0..arrayCase.size - 1) {
 //            Toast.makeText(this,arrayCase[i].country,Toast.LENGTH_SHORT).show()
                         Log.d("Ülkeler For", arrayCase[i].country)
@@ -193,7 +185,6 @@ class MainActivity : AppCompatActivity() {
 
                     //Api Data Pull - Yusuf
                     caseUpdateList.clear()
-
                     if (arrayCase[position].country.equals(selectedCountry)) {
 
                         caseUpdateList.add(arrayCase[position])
@@ -217,7 +208,6 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this@MainActivity, "Seç" + " " + "" + testicerik[position], Toast.LENGTH_SHORT).show()
                     //
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }

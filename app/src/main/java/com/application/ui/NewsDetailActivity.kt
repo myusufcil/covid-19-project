@@ -25,16 +25,17 @@ class NewsDetailActivity : AppCompatActivity() {
         tv_source_news_details.text=source
         tv_description_news_details.text=description
 
-//
-//        var url=intent.getStringExtra("url")
-//        webView = findViewById(R.id.newsDetailWebView)
-//
-//        webView.webViewClient = object : WebViewClient() {
-//            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-//                view?.loadUrl(url)
-//                return true
-//            }
-//        }
-//        webView.loadUrl(url)
+    /*
+        var url=intent.getStringExtra("url")
+        webView = findViewById(R.id.newsDetailWebView)
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                view?.loadUrl(url)
+                return true
+            }
+        }
+        webView.loadUrl(url)
+    */
     }
 }

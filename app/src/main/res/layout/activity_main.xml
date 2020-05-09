@@ -49,6 +49,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 <TextView
+                    android:textSize="20dp"
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,6 +106,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/acme"
                 android:textColor="#565d47"
+                android:textSize="20dp"
                 android:text="Haberler"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

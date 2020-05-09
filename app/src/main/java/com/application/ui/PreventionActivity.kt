@@ -13,17 +13,17 @@ import com.application.dto.SymptomsDTO
 import com.application.model.IBaseModel
 import kotlinx.android.synthetic.main.activity_ps.*
 
-class psActivity : AppCompatActivity() {
+class PreventionActivity : AppCompatActivity() {
 
     lateinit var recyclerViewSymptomsAdapter: RecyclerViewAdapter
     lateinit var recyclerViewSymptoms: RecyclerView
     private var symptomsListBaseModel = mutableListOf<IBaseModel>()
-    lateinit private var symptomsListObject: SymptomsDTO
+    lateinit var symptomsListObject: SymptomsDTO
 
     lateinit var recyclerViewPreventionAdapter: RecyclerViewAdapter
     lateinit var recyclerViewPrevention: RecyclerView
     private var preventionListBaseModel = mutableListOf<IBaseModel>()
-    lateinit private var preventionListObject: PreventionDTO
+    lateinit var preventionListObject: PreventionDTO
 
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
@@ -49,7 +49,7 @@ class psActivity : AppCompatActivity() {
         readyToDataSource()
         getRecyclerViewAdapter()
 
-        for (position in 0..symptomsPics.size - 1) {
+        for (position in 0 until symptomsPics.size) {
             symptomsListObject = SymptomsDTO(
                 picsSymptoms = symptomsPics[position],
                 nameSymptoms = symptomsName[position]
@@ -58,7 +58,7 @@ class psActivity : AppCompatActivity() {
             recyclerViewSymptomsAdapter.notifyDataSetChanged()
         }
 
-        for (position in 0..preventionPics.size - 1) {
+        for (position in 0 until preventionPics.size) {
             preventionListObject = PreventionDTO(
                 picsPrevention = preventionPics[position],
                 descriptionPrevention = preventionDescription[position]
@@ -69,13 +69,10 @@ class psActivity : AppCompatActivity() {
 
 
         iv_intent_ps_menu.setOnClickListener {
-
             val intent=Intent(this,MainActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.intent_zoom_out,R.anim.static_animation)
-
         }
-
     }
 
     private fun readyToDataSource() {
@@ -93,7 +90,6 @@ class psActivity : AppCompatActivity() {
 
         symptomsName = resources.getStringArray(R.array.symptomsArray)
 
-
         preventionPics = arrayListOf(
             R.drawable.agzini_kapa_pre1,
             R.drawable.dezenfektan_kullan_pre2,
@@ -108,10 +104,7 @@ class psActivity : AppCompatActivity() {
             R.drawable.uyku_duzeni_pre11,
             R.drawable.yuzune_dokunma_pre12
         )
-
         preventionDescription = resources.getStringArray(R.array.preventionArray)
-
-
     }
 
     private fun getRecyclerViewAdapter() {

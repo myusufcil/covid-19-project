@@ -3,7 +3,6 @@ package com.application.viewholder
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,12 +15,9 @@ import com.application.dto.NewsDTO
 import com.application.model.IBaseModel
 import com.application.ui.NewsDetailActivity
 import com.squareup.picasso.Picasso
-
-import kotlinx.android.synthetic.main.item_news_card.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 /*
 Created by Mustafa Tekkılıç 
 */
@@ -50,28 +46,17 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
             val input =
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             val dateOutput = SimpleDateFormat("dd/MM/yyyy -- HH:mm:ss")
-//            val dateOutput = SimpleDateFormat("dd/MM/yyyy")
-//            val clockOutput = SimpleDateFormat("HH:mm:ss")
             var d: Date? = null
             try {
                 d = input.parse(item.date)
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
-//            val clockFormat = clockOutput.format(d)
             dateFormat = dateOutput.format(d)
             date.text=dateFormat
-
-            //
-
-
-
-
-
-
             Picasso.get().load(item.image).into(image)
-            //TODO TARİH PARSE EDİLİP BASILACAK
         }
+
         rootView.setOnClickListener {
             var bundle= Bundle()
             val intent = Intent(rootView.context, NewsDetailActivity::class.java)
