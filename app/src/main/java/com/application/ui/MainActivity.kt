@@ -3,6 +3,8 @@ package com.application.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerViewCaseUpdateAdapter: RecyclerViewAdapter
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         override fun onClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+
         override fun onLongClickListener(position: Int, model: IBaseModel) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
@@ -63,18 +67,31 @@ class MainActivity : AppCompatActivity() {
 
         var sayac = 0
 
+
+        //Bottom Bar Function
+           chipMenuMain.setOnItemSelectedListener {
+
+                when (it) {
+                    R.id.wear_mask_menu->{
+                        val intent=Intent(this,PreventionActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
+                    }
+                }
+            }
+
         //Intent Menu
 
         iv_intent_menu.setOnClickListener {
-//            Log.d("Menu","Intent Menu basıldı")
-            var intent=Intent(this,PreventionActivity::class.java)
+            //            Log.d("Menu","Intent Menu basıldı")
+            var intent = Intent(this, PreventionActivity::class.java)
+
+            //            Log.d("Menu","Intent Menu basıldı")
+
             startActivity(intent)
-            overridePendingTransition(R.anim.intent_zoom_in,R.anim.static_animation)
+            overridePendingTransition(R.anim.main_slide_top, R.anim.main_slide_bottom)
 
         }
-
-        //--Intent Menu
-
 
         var apiService = RetrofitCoronaFactory.getCovidInformation()
             .getCoronaForCountries()
@@ -117,8 +134,8 @@ class MainActivity : AppCompatActivity() {
                 call: Call<CoronaNewsInformation>,
                 response: Response<CoronaNewsInformation>
             ) {
-                Log.d("başarılı","başarılı")
-               response.body().let {
+                Log.d("başarılı", "başarılı")
+                response.body().let {
                     it!!.result.forEach { _result ->
                         newsListObject = NewsDTO(
                             name = _result.name,
@@ -135,30 +152,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
-
-        // Ülkeleri çekmek için
-//        apiService = RetrofitCoronaFactory.getCovidInformation()
-//            .getCoronaForCountries()
-//        apiService.enqueue(object : Callback<CoronaCountriesInformation> {
-//            override fun onFailure(call: Call<CoronaCountriesInformation>, t: Throwable) {
-//              Log.d("","")
-//            }
-//
-//            override fun onResponse(
-//                call: Call<CoronaCountriesInformation>,
-//                response: Response<CoronaCountriesInformation>
-//            ) {
-//                response.body().let {
-//                    it!!.result.forEach { _result ->
-//                        /*var item= CountryDTO(
-//                            country = _result.country
-//                        )*/
-//                        arrayCountry.add(_result.country)
-//                    }
-//                }
-//            }
-//        })
 
         //For Spinner - Mustafa
         val spinner = findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
@@ -177,7 +170,6 @@ class MainActivity : AppCompatActivity() {
                     id: Long
                 ) {
                     for (i in 0..arrayCase.size - 1) {
-//            Toast.makeText(this,arrayCase[i].country,Toast.LENGTH_SHORT).show()
                         Log.d("Ülkeler For", arrayCase[i].country)
                     }
 
@@ -208,6 +200,7 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this@MainActivity, "Seç" + " " + "" + testicerik[position], Toast.LENGTH_SHORT).show()
                     //
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }
@@ -241,4 +234,28 @@ class MainActivity : AppCompatActivity() {
         )
         recyclerViewNews.adapter = recyclerViewNewsAdapter
     }
+
+    //Bottom Bar Menu
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.bottom_bar_chip, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home_menu -> {
+                Toast.makeText(applicationContext, "Deneemeeeee", Toast.LENGTH_LONG).show()
+                true
+            }
+            R.id.wear_mask_menu -> {
+                Log.d("Wear Menu", "Tıklandı")
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    //Bottom Bar Menu
 }

@@ -11,6 +11,7 @@ import com.application.covid_19.R
 import com.application.dto.PreventionDTO
 import com.application.dto.SymptomsDTO
 import com.application.model.IBaseModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_ps.*
 
 class PreventionActivity : AppCompatActivity() {
@@ -18,12 +19,12 @@ class PreventionActivity : AppCompatActivity() {
     lateinit var recyclerViewSymptomsAdapter: RecyclerViewAdapter
     lateinit var recyclerViewSymptoms: RecyclerView
     private var symptomsListBaseModel = mutableListOf<IBaseModel>()
-    lateinit var symptomsListObject: SymptomsDTO
+    lateinit private var symptomsListObject: SymptomsDTO
 
     lateinit var recyclerViewPreventionAdapter: RecyclerViewAdapter
     lateinit var recyclerViewPrevention: RecyclerView
     private var preventionListBaseModel = mutableListOf<IBaseModel>()
-    lateinit var preventionListObject: PreventionDTO
+    lateinit private var preventionListObject: PreventionDTO
 
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
@@ -49,7 +50,7 @@ class PreventionActivity : AppCompatActivity() {
         readyToDataSource()
         getRecyclerViewAdapter()
 
-        for (position in 0 until symptomsPics.size) {
+        for (position in 0..symptomsPics.size - 1) {
             symptomsListObject = SymptomsDTO(
                 picsSymptoms = symptomsPics[position],
                 nameSymptoms = symptomsName[position]
@@ -58,7 +59,7 @@ class PreventionActivity : AppCompatActivity() {
             recyclerViewSymptomsAdapter.notifyDataSetChanged()
         }
 
-        for (position in 0 until preventionPics.size) {
+        for (position in 0..preventionPics.size - 1) {
             preventionListObject = PreventionDTO(
                 picsPrevention = preventionPics[position],
                 descriptionPrevention = preventionDescription[position]
@@ -69,10 +70,29 @@ class PreventionActivity : AppCompatActivity() {
 
 
         iv_intent_ps_menu.setOnClickListener {
-            val intent=Intent(this,MainActivity::class.java)
+
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.intent_zoom_out,R.anim.static_animation)
+            overridePendingTransition(R.anim.ps_slide_top, R.anim.ps_slide_bottom)
+
         }
+        chipMenuPs.setOnItemSelectedListener{
+            when (it) {
+                R.id.home_menu -> {
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.main_slide_top, R.anim.main_slide_bottom)
+                }
+//                R.id.wear_mask_menu->{
+//                    val intent=Intent(this,psActivity::class.java)
+//                    startActivity(intent)
+//                    overridePendingTransition(R.anim.ps_slide_top,R.anim.ps_slide_bottom)
+//                }
+            }
+        }
+
+
+
     }
 
     private fun readyToDataSource() {
@@ -90,6 +110,7 @@ class PreventionActivity : AppCompatActivity() {
 
         symptomsName = resources.getStringArray(R.array.symptomsArray)
 
+
         preventionPics = arrayListOf(
             R.drawable.agzini_kapa_pre1,
             R.drawable.dezenfektan_kullan_pre2,
@@ -104,7 +125,10 @@ class PreventionActivity : AppCompatActivity() {
             R.drawable.uyku_duzeni_pre11,
             R.drawable.yuzune_dokunma_pre12
         )
+
         preventionDescription = resources.getStringArray(R.array.preventionArray)
+
+
     }
 
     private fun getRecyclerViewAdapter() {
