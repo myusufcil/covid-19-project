@@ -66,6 +66,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/country_spinner" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layoutAnimation="@anim/down_to_up"
                         android:id="@+id/recyclerViewCaseUpdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,11 +116,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.core.widget.NestedScrollView>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </FrameLayout>

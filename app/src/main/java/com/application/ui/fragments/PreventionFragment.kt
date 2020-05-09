@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
@@ -14,6 +16,7 @@ import com.application.covid_19.R
 import com.application.dto.PreventionDTO
 import com.application.dto.SymptomsDTO
 import com.application.model.IBaseModel
+import kotlinx.android.synthetic.main.fragment_case_update.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -91,7 +94,18 @@ class PreventionFragment : Fragment() {
             preventionListBaseModel.add(preventionListObject)
             recyclerViewPreventionAdapter.notifyDataSetChanged()
         }
+      /*  val resId: Int = R.anim.down_to_up
+        val animation: LayoutAnimationController =
+            AnimationUtils.loadLayoutAnimation(context, resId)
+        recyclerViewCaseUpdate.layoutAnimation = animation
 
+        var controller: LayoutAnimationController =
+            AnimationUtils.loadLayoutAnimation(context, R.anim.down_to_up);
+
+        recyclerViewCaseUpdate.layoutAnimation = controller
+        recyclerViewCaseUpdate.adapter?.notifyDataSetChanged()
+        recyclerViewCaseUpdate.scheduleLayoutAnimation()
+*/
         return getView
     }
 

@@ -1,7 +1,9 @@
 package com.application.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.application.covid_19.R
 import com.application.model.IBaseModel
@@ -60,6 +62,7 @@ class RecyclerViewAdapter(
 
     override fun getItemCount() = items.size
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when (items[position].type) {
             IBaseModel.TYPE_CASE_UPDATE ->
@@ -89,7 +92,6 @@ class RecyclerViewAdapter(
                 )
         }
     }
-
     override fun getItemViewType(position: Int): Int { //  !!!Burayı sor!!!
         return items[position].type
     }
