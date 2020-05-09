@@ -1,4 +1,4 @@
-package com.application.ui
+package com.application.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -99,7 +99,9 @@ class CaseUpdateFragment : Fragment() {
                             totalCases = _result.totalCases,
                             totalDeaths = _result.totalDeaths,
                             totalRecovered = _result.totalRecovered,
-                            country = _result.country
+                            country = _result.country,
+                            newDeaths = _result.newDeaths,
+                            newCases = _result.newCases
                         )
                         arrayCountry.add(_result.country)
                         arrayCase.add(topRatedListObject)

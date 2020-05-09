@@ -11,6 +11,8 @@ import com.application.model.IBaseModel
 data class CaseUpdateDTO(
     var totalDeaths: String,
     var totalRecovered: String,
+    var newCases: String,
+    var newDeaths: String,
     var totalCases: String,
     var country:String
 ) : IBaseModel {

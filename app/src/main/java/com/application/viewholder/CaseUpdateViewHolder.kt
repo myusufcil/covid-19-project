@@ -18,6 +18,8 @@ class CaseUpdateViewHolder (view: View):BaseViewHolder(view){
     var totalDeath:TextView= view.findViewById(R.id.tv_item_case_update_card_death_number)
     var totalRecovered:TextView= view.findViewById(R.id.tv_item_case_update_card_recovered_number)
     var totalInfected:TextView= view.findViewById(R.id.tv_item_case_update_card_infected_number)
+    var newInfected:TextView= view.findViewById(R.id.tv_item_case_update_new_infected_number)
+    var newDeath:TextView= view.findViewById(R.id.tv_item_case_update_new_date_number)
 
     override fun bindView(baseModel: IBaseModel, position: Int, click: IRecyclerViewClickListener) {
         val item = baseModel as CaseUpdateDTO
@@ -25,6 +27,8 @@ class CaseUpdateViewHolder (view: View):BaseViewHolder(view){
             totalDeath.text=item.totalDeaths
             totalRecovered.text=item.totalRecovered
             totalInfected.text=item.totalCases
+            newInfected.text=item.newCases
+            newDeath.text=item.newDeaths
         }
     }
 }
