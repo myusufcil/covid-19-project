@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
@@ -44,7 +45,7 @@ class CaseUpdateFragment : Fragment() {
     var arrayCase: ArrayList<CaseUpdateDTO> = ArrayList()
     private lateinit var newsListObject: NewsDTO
 
-    private lateinit var getView:View
+    private lateinit var getView: View
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
         override fun onClickListener(position: Int, model: IBaseModel) {
@@ -73,11 +74,58 @@ class CaseUpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        getView=inflater.inflate(R.layout.fragment_case_update, container, false)
+        getView = inflater.inflate(R.layout.fragment_case_update, container, false)
         getRecyclerViewAdapter()
 
         var selectedCountry: String = "USA"
         var arrayCountry: ArrayList<String> = ArrayList()
+        val spinner = getView.findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
+
+        if (spinner != null) {
+            val adapter =
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item,
+                    arrayCountry
+                )
+
+            spinner.adapter = adapter as SpinnerAdapter?
+            spinner.setSelection(1,false)
+            spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+
+//                    if (!spFirstClick) {
+
+                    for (i in 0..arrayCase.size - 1) {
+
+                        Log.d("Ülkeler For", arrayCase[i].country)
+                    }
+
+                    selectedCountry = arrayCountry[position]
+
+                    //Api Data Pull - Yusuf
+                    caseUpdateList.clear()
+
+                    if (arrayCase[position].country.equals(selectedCountry)) {
+
+                        caseUpdateList.add(arrayCase[position])
+                        recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+
 
         var apiService = RetrofitCoronaFactory.getCovidInformation()
             .getCoronaForCountries()
@@ -106,7 +154,9 @@ class CaseUpdateFragment : Fragment() {
                         arrayCountry.add(_result.country)
                         arrayCase.add(topRatedListObject)
 
+
                     }
+                    spinner.setSelection(1,false)
                     caseUpdateList.add(arrayCase[0])
                     recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
                 }
@@ -143,46 +193,9 @@ class CaseUpdateFragment : Fragment() {
         })
 
         //For Spinner - Mustafa
-        val spinner = getView.findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
-        if (spinner != null) {
-            val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayCountry)
 
-            spinner.adapter = adapter as SpinnerAdapter?
-            spinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
 
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
 
-//                    if (!spFirstClick) {
-
-                    for (i in 0..arrayCase.size - 1) {
-
-                        Log.d("Ülkeler For", arrayCase[i].country)
-                    }
-
-                    selectedCountry = arrayCountry[position]
-
-                    //Api Data Pull - Yusuf
-                    caseUpdateList.clear()
-
-                    if (arrayCase[position].country.equals(selectedCountry)) {
-
-                        caseUpdateList.add(arrayCase[position])
-                        recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
-            }
-        }
         return getView
 
     }
