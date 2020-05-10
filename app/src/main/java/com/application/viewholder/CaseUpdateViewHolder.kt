@@ -25,10 +25,30 @@ class CaseUpdateViewHolder (view: View):BaseViewHolder(view){
         val item = baseModel as CaseUpdateDTO
         item.let {
             totalDeath.text=item.totalDeaths
-            totalRecovered.text=item.totalRecovered
             totalInfected.text=item.totalCases
-            newInfected.text=item.newCases
-            newDeath.text=item.newDeaths
+
+            if(item.totalRecovered=="N/A"){
+                totalRecovered.text="Mevcut Veri Yok..."
+                totalRecovered.textSize =15f
+            }else{
+                totalRecovered.text=item.totalRecovered
+            }
+
+            if(item.newCases==""){
+                newInfected.text="Veriler Güncelleniyor..."
+                newInfected.textSize =15f
+            }else{
+                newInfected.text=item.newCases
+            }
+
+            if(item.newDeaths==""){
+                newDeath.text="Veriler Güncelleniyor..."
+                newDeath.textSize =15f
+            }else{
+                newDeath.text=item.newDeaths
+            }
+
         }
+
     }
 }

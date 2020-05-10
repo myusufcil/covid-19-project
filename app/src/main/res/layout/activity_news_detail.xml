@@ -11,8 +11,8 @@
         android:id="@+id/tv_source_news_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/acme"
         android:text="@string/broadcaster"
         android:textColor="#565d47"
@@ -24,19 +24,20 @@
         android:id="@+id/iv_news_details"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:adjustViewBounds="false"
-        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:srcCompat="@drawable/agzini_kapa_pre1" />
 
     <TextView
         android:id="@+id/date_news_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
         android:text="@string/date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_news_details" />
@@ -45,12 +46,12 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_source_news_details" >
+        app:layout_constraintTop_toBottomOf="@+id/tv_source_news_details">
 
         <TextView
             android:id="@+id/tv_description_news_details"
@@ -58,6 +59,19 @@
             android:layout_height="wrap_content"
             android:text="@string/description" />
     </ScrollView>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/acme"
+        android:text="Haber Detay"
+        android:textColor="#565d47"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
