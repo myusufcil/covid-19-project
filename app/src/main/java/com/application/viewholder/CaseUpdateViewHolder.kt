@@ -13,22 +13,31 @@ import com.application.model.IBaseModel
   myusufcl7@gmail.com
 */
 
-class CaseUpdateViewHolder (view: View):BaseViewHolder(view){
+class CaseUpdateViewHolder(view: View) : BaseViewHolder(view) {
 
-    var totalDeath:TextView= view.findViewById(R.id.tv_item_case_update_card_death_number)
-    var totalRecovered:TextView= view.findViewById(R.id.tv_item_case_update_card_recovered_number)
-    var totalInfected:TextView= view.findViewById(R.id.tv_item_case_update_card_infected_number)
-    var newInfected:TextView= view.findViewById(R.id.tv_item_case_update_new_infected_number)
-    var newDeath:TextView= view.findViewById(R.id.tv_item_case_update_new_date_number)
+    var totalDeath: TextView = view.findViewById(R.id.tv_item_case_update_card_death_number)
+    var totalRecovered: TextView = view.findViewById(R.id.tv_item_case_update_card_recovered_number)
+    var totalInfected: TextView = view.findViewById(R.id.tv_item_case_update_card_infected_number)
+    var newInfected: TextView = view.findViewById(R.id.tv_item_case_update_new_infected_number)
+    var newDeath: TextView = view.findViewById(R.id.tv_item_case_update_new_death_number)
 
     override fun bindView(baseModel: IBaseModel, position: Int, click: IRecyclerViewClickListener) {
         val item = baseModel as CaseUpdateDTO
         item.let {
-            totalDeath.text=item.totalDeaths
-            totalRecovered.text=item.totalRecovered
-            totalInfected.text=item.totalCases
-            newInfected.text=item.newCases
-            newDeath.text=item.newDeaths
+            totalDeath.text = item.totalDeaths
+            totalRecovered.text = item.totalRecovered
+            totalInfected.text = item.totalCases
+            if (item.newCases == "") {
+                newInfected.text = "Veriler Güncelleniyor..."
+            } else {
+                newInfected.text = item.newCases
+            }
+
+            if (item.newDeaths == "") {
+                newDeath.text = "Veriler Güncelleniyor..."
+            } else {
+                newDeath.text = item.newDeaths
+            }
         }
     }
 }

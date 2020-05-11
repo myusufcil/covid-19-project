@@ -177,7 +177,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_item_case_update_new_date_number"
+                android:id="@+id/tv_item_case_update_new_death_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -198,7 +198,7 @@
                 android:textColor="@color/Gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_item_case_update_new_date_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_case_update_new_death_number" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

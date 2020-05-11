@@ -105,7 +105,6 @@ class CaseUpdateFragment : Fragment() {
                         )
                         arrayCountry.add(_result.country)
                         arrayCase.add(topRatedListObject)
-
                     }
                     caseUpdateList.add(arrayCase[0])
                     recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
@@ -136,7 +135,6 @@ class CaseUpdateFragment : Fragment() {
                         )
                         newsListBaseModel.add(newsListObject)
                         recyclerViewNewsAdapter.notifyDataSetChanged()
-
                     }
                 }
             }
@@ -158,26 +156,19 @@ class CaseUpdateFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-
-//                    if (!spFirstClick) {
-
                     for (i in 0..arrayCase.size - 1) {
-
                         Log.d("Ülkeler For", arrayCase[i].country)
                     }
-
                     selectedCountry = arrayCountry[position]
 
                     //Api Data Pull - Yusuf
                     caseUpdateList.clear()
 
                     if (arrayCase[position].country.equals(selectedCountry)) {
-
                         caseUpdateList.add(arrayCase[position])
                         recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
                     }
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // write code to perform some action
                 }

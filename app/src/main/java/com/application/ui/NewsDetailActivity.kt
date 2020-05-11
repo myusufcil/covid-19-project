@@ -19,22 +19,25 @@ class NewsDetailActivity : AppCompatActivity() {
         val source=intent.getStringExtra("source")
         val description=intent.getStringExtra("description")
 
-
         Picasso.get().load(image).into(iv_news_details)
         date_news_details.text=date
         tv_source_news_details.text=source
         tv_description_news_details.text=description
 
-//
-//        var url=intent.getStringExtra("url")
-//        webView = findViewById(R.id.newsDetailWebView)
-//
-//        webView.webViewClient = object : WebViewClient() {
-//            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-//                view?.loadUrl(url)
-//                return true
-//            }
-//        }
-//        webView.loadUrl(url)
+
+        /*
+        var url=intent.getStringExtra("url")
+        webView=findViewById(R.id.newsWebView)
+
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                view?.loadUrl(url)
+                return true
+            }
+        }
+        webView.loadUrl(url)
+        */
+
     }
 }

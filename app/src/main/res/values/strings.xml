@@ -32,8 +32,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="infected">Enfekte</string>
-    <string name="deaths">Ölüm</string>
+    <string name="infected">Toplam Enfekte</string>
+    <string name="deaths">Toplam Ölüm</string>
     <string name="recovered">İyileşen</string>
     <string name="new_infected">Yeni Enfekte</string>
     <string name="new_deaths">Yeni Ölüm</string>

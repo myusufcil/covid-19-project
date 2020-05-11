@@ -60,6 +60,7 @@ class CoronaNewsViewHolder (view: View):BaseViewHolder(view){
         rootView.setOnClickListener {
             var bundle= Bundle()
             val intent = Intent(rootView.context, NewsDetailActivity::class.java)
+           // intent.putExtra("url",item.url)
             intent.putExtra("image", item.image)
             intent.putExtra("date", dateFormat)
             intent.putExtra("source", item.source)
