@@ -2,14 +2,13 @@ package com.application.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.SpinnerAdapter
+import android.widget.*
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
@@ -22,6 +21,7 @@ import com.application.model.CoronaNewsInformation
 import com.application.model.IBaseModel
 import com.application.network.RetrofitCoronaFactory
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
+import kotlinx.android.synthetic.main.item_case_update_card.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,7 +44,7 @@ class CaseUpdateFragment : Fragment() {
     var arrayCase: ArrayList<CaseUpdateDTO> = ArrayList()
     private lateinit var newsListObject: NewsDTO
 
-    private lateinit var getView:View
+    private lateinit var getView: View
 
     var recyclerViewItemClickListener = object : IRecyclerViewClickListener {
         override fun onClickListener(position: Int, model: IBaseModel) {
@@ -73,11 +73,14 @@ class CaseUpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        getView=inflater.inflate(R.layout.fragment_case_update, container, false)
+        getView = inflater.inflate(R.layout.fragment_case_update, container, false)
         getRecyclerViewAdapter()
 
-        var selectedCountry: String = "USA"
+        val spinner = getView.findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
+
+        var selectedCountry: String
         var arrayCountry: ArrayList<String> = ArrayList()
+
 
         var apiService = RetrofitCoronaFactory.getCovidInformation()
             .getCoronaForCountries()
@@ -108,6 +111,16 @@ class CaseUpdateFragment : Fragment() {
                     }
                     caseUpdateList.add(arrayCase[0])
                     recyclerViewCaseUpdateAdapter.notifyDataSetChanged()
+
+                    val adapter =
+                        ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_spinner_dropdown_item,
+                            arrayCountry
+                        )
+
+                    spinner.adapter = adapter as SpinnerAdapter?
+                    spinner.setSelection(0)
                 }
             }
         })
@@ -141,12 +154,9 @@ class CaseUpdateFragment : Fragment() {
         })
 
         //For Spinner - Mustafa
-        val spinner = getView.findViewById<Spinner>(R.id.country_spinner) as SearchableSpinner
-        if (spinner != null) {
-            val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayCountry)
 
-            spinner.adapter = adapter as SpinnerAdapter?
+
+        spinner.let {
             spinner.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
 
@@ -174,6 +184,8 @@ class CaseUpdateFragment : Fragment() {
                 }
             }
         }
+
+
         return getView
 
     }

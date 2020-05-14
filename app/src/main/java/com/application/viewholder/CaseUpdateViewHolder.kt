@@ -24,19 +24,28 @@ class CaseUpdateViewHolder(view: View) : BaseViewHolder(view) {
     override fun bindView(baseModel: IBaseModel, position: Int, click: IRecyclerViewClickListener) {
         val item = baseModel as CaseUpdateDTO
         item.let {
-            totalDeath.text = item.totalDeaths
-            totalRecovered.text = item.totalRecovered
-            totalInfected.text = item.totalCases
-            if (item.newCases == "") {
-                newInfected.text = "Veriler Güncelleniyor..."
-            } else {
-                newInfected.text = item.newCases
+            totalDeath.text=item.totalDeaths
+            totalInfected.text=item.totalCases
+
+            if( item.totalRecovered=="N/A"){
+                totalRecovered.text="Mevcut Veri Yok..."
+                totalRecovered.textSize =15f
+            }else{
+                totalRecovered.text=item.totalRecovered
             }
 
-            if (item.newDeaths == "") {
-                newDeath.text = "Veriler Güncelleniyor..."
-            } else {
-                newDeath.text = item.newDeaths
+            if( item.newCases == "" ){
+                newInfected.text="Veriler Güncelleniyor..."
+                newInfected.textSize =15f
+            }else{
+                newInfected.text=item.newCases
+            }
+
+            if(item.newDeaths==""){
+                newDeath.text="Veriler Güncelleniyor..."
+                newDeath.textSize =15f
+            }else{
+                newDeath.text=item.newDeaths
             }
         }
     }
