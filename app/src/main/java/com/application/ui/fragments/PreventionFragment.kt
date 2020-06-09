@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.application.adapter.IRecyclerViewClickListener
 import com.application.adapter.RecyclerViewAdapter
-
 import com.application.covid_19.R
 import com.application.dto.PreventionDTO
 import com.application.dto.SymptomsDTO

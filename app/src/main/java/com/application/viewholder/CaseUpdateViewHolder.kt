@@ -40,7 +40,6 @@ class CaseUpdateViewHolder(view: View) : BaseViewHolder(view) {
             }else{
                 newInfected.text=item.newCases
             }
-
             if(item.newDeaths==""){
                 newDeath.text="Veriler Güncelleniyor..."
                 newDeath.textSize =15f
